@@ -1,7 +1,7 @@
 # Frontend Developer Assessment – EWN Bangladesh Limited
 
 ## 🚀 Live Demo
-Deployed Application: [Click Here](https://your-app-link.vercel.app)
+Deployed Application: [Click Here](https://ewn-front-end.vercel.app/)
 
 ## 📂 Repository
 GitHub Repository: [Click Here](https://github.com/unusali1/EWN-Front-End.git)
