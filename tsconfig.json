@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "Components/Individual/BusinessInfoForm.jsx", "Components/Individual/ContactPersonForm.jsx", "app/signup/individual/page.jsx"],
   "exclude": ["node_modules"]
 }
