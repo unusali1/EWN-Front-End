@@ -2,9 +2,9 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { Stepper, Step, StepButton, StepLabel, Card } from "@mui/material";
-import BusinessInfoForm from "@/Components/Business/BusinessInfoForm.jsx";
-import ContactPersonForm from "@/Components/Business/ContactPersonForm.jsx";
 import { useRouter } from "next/navigation";
+import BusinessInfoForm from "@/Components/Business/BusinessInfoForm";
+import ContactPersonForm from "@/Components/Business/ContactPersonForm";
 
 const steps = ["Business Info", "Contact Person Info"];
 
@@ -79,7 +79,7 @@ const Page = () => {
           <h2 className="text-2xl font-bold text-gray-800 text-center">
             Let's Get Started With
           </h2>
-          <h3 className="text-lg font-bold text-gray-600 text-center">
+          <h3 className="text-lg font-bold text-gray-800 text-center">
             Business
           </h3>
           <p className="text-center text-gray-500 mb-4">

@@ -47,7 +47,7 @@ const personInfoValidationSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
-export default function ContactPersonForm({ onNext, onBack, loading }) {
+const ContactPersonForm = ({ onNext, onBack, loading }) => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -327,3 +327,5 @@ export default function ContactPersonForm({ onNext, onBack, loading }) {
     </Box>
   );
 }
+
+export default ContactPersonForm
