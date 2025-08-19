@@ -15,7 +15,7 @@ const BusinessInfoValidationSchema = yup.object().shape({
   address: yup.string().required("Address is required"),
 });
 
- const BusinessInfoForm = ({ onNext, onBack, formData }) =>{
+ const BusinessInfoFormForBusiness = ({ onNext, onBack, formData }) =>{
   const [error, setError] = useState("");
 
   const formik = useFormik({
@@ -209,4 +209,4 @@ const BusinessInfoValidationSchema = yup.object().shape({
   );
 }
 
-export default BusinessInfoForm
+export default BusinessInfoFormForBusiness

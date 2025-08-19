@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { Stepper, Step, StepButton, StepLabel, Card } from "@mui/material";
 import { useRouter } from "next/navigation";
-import BusinessInfoForm from "@/Components/Business/BusinessInfoForm";
-import ContactPersonForm from "@/Components/Business/ContactPersonForm";
+import BusinessInfoForm from "@/Components/Business/BusinessInfoFormForBusiness.jsx";
+import ContactPersonForm from "@/Components/Business/ContactPersonFormForBusiness.jsx";
 
 const steps = ["Business Info", "Contact Person Info"];
 
