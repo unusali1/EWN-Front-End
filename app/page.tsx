@@ -19,6 +19,7 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import Link from "next/link";
 
 // Define the shape of form values
 interface FormValues {
@@ -196,13 +197,14 @@ const Home: React.FC = () => {
             </Button>
             <Typography variant="body2" textAlign="center">
               Don&apos;t have an account?{" "}
-              <Typography
-                component="span"
-                sx={{ cursor: "pointer", fontWeight: 400, color: "#EF510F" }}
-                // onClick={() => navigate('/signup')} // Uncomment and use Next.js navigation
-              >
-                Create An Account
-              </Typography>
+              <Link href="/signup">
+                <Typography
+                  component="span"
+                  sx={{ cursor: "pointer", fontWeight: 400, color: "#EF510F" }}
+                >
+                  Create An Account
+                </Typography>
+              </Link>
             </Typography>
           </form>
         </Box>
