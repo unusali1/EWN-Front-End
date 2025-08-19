@@ -1,12 +1,14 @@
 "use client";
 import React, { useState } from "react";
+import { Box, TextField, Button } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { TextField, Box, Button } from "@mui/material";
+import FileUploadOutlined from "@mui/icons-material/FileUploadOutlined";
 
 const BusinessInfoValidationSchema = yup.object().shape({
   businessName: yup.string().required("Business Name is required"),
   websiteUrl: yup.string().required("Website or Social Media URL is required"),
+  tradeLience: yup.string().required("Trade lience is required"),
   districtState: yup.string().required("District or State is required"),
   cityTown: yup.string().required("City or Town is required"),
   postcodeZipcode: yup.string().required("Postcode or Zipcode is required"),
@@ -20,6 +22,7 @@ export default function BusinessInfoForm({ onNext, onBack, formData }) {
     initialValues: {
       businessName: formData.businessName || "",
       websiteUrl: formData.websiteUrl || "",
+      tradeLience: formData.tradeLience || "",
       districtState: formData.districtState || "",
       cityTown: formData.cityTown || "",
       postcodeZipcode: formData.postcodeZipcode || "",
@@ -34,13 +37,13 @@ export default function BusinessInfoForm({ onNext, onBack, formData }) {
   });
 
   return (
-    <Box className="flex items-center justify-center mt-4">
-      <Box className="bg-white w-full">
+    <Box className="flex mt-4">
+      <Box className="bg-white w-full ">
         <form onSubmit={formik.handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">            
             <TextField
               fullWidth
-              id="business_name"
+              id="businessName"
               label="Business Name*"
               name="businessName"
               value={formik.values.businessName}
@@ -70,24 +73,66 @@ export default function BusinessInfoForm({ onNext, onBack, formData }) {
               InputProps={{ sx: { height: "52px", padding: "6px" } }}
             />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <TextField
-              fullWidth
-              id="districtState"
-              label="District / State*"
-              name="districtState"
-              value={formik.values.districtState}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.districtState &&
-                Boolean(formik.errors.districtState)
-              }
-              helperText={
-                formik.touched.districtState && formik.errors.districtState
-              }
-              color="success"
-              InputProps={{ sx: { height: "52px", padding: "6px" } }}
-            />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="w-full">
+              <TextField
+                fullWidth
+                id="tradeLience"
+                type="file"
+                label="Trade Lience*"
+                name="tradeLience"
+                value={formik.values.tradeLience}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.tradeLience &&
+                  Boolean(formik.errors.tradeLience)
+                }
+                helperText={
+                  formik.touched.tradeLience && formik.errors.tradeLience
+                }
+                color="success"
+                focused
+                InputProps={{
+                    readOnly: true,
+                  sx: {
+                    height: "52px",
+                    padding: "6px",
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderWidth: "1px !important",
+                    },
+                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderWidth: "1px !important",
+                    },
+                  },
+                  endAdornment: (
+                    <FileUploadOutlined onClick={() => handleUpload()} />
+                  ),
+                }}
+              />
+            </div>
+            <div className="w-full">
+              <TextField
+                fullWidth
+                id="districtState"
+                label="District / State*"
+                name="districtState"
+                value={formik.values.districtState}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.districtState &&
+                  Boolean(formik.errors.districtState)
+                }
+                helperText={
+                  formik.touched.districtState && formik.errors.districtState
+                }
+                color="success"
+                InputProps={{ sx: { height: "52px", padding: "6px" } }}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <TextField
               fullWidth
               id="cityTown"
@@ -100,6 +145,7 @@ export default function BusinessInfoForm({ onNext, onBack, formData }) {
               color="success"
               InputProps={{ sx: { height: "52px", padding: "6px" } }}
             />
+
             <TextField
               fullWidth
               id="postcodeZipcode"

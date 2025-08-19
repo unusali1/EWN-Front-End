@@ -22,6 +22,19 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "Components/Individual/BusinessInfoForm.jsx", "Components/Individual/ContactPersonForm.jsx", "app/signup/individual/page.jsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "components/individual/BusinessInfoForm.jsx",
+    "components/individual/ContactPersonForm.jsx",
+    "app/signup/individual/page.jsx",
+    "app/signup/business/page.jsx",
+    "app/page.jsx",
+    "components/Footer.jsx",
+    "components/Header.jsx",
+    "app/layout.jsx"
+, "app/signup/page.jsx"  ],
   "exclude": ["node_modules"]
 }

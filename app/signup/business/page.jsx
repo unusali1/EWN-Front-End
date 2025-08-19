@@ -1,11 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { Stepper, Step, StepButton, StepLabel } from '@mui/material';
-import { Card } from "@mui/material";
-
-import BusinessInfoForm from "@/Components/Individual/BusinessInfoForm.jsx";
-import ContactPersonForm from "@/Components/Individual/ContactPersonForm.jsx";
+import { Stepper, Step, StepButton, StepLabel, Card } from "@mui/material";
+import BusinessInfoForm from "@/components/business/BusinessInfoForm.jsx";
+import ContactPersonForm from "@/components/business/ContactPersonForm.jsx";
+import { useRouter } from "next/navigation";
 
 const steps = ["Business Info", "Contact Person Info"];
 
@@ -30,10 +29,11 @@ function CustomStepIcon(props) {
 }
 
 const Page = () => {
+  const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
   const [formData, setFormData] = useState({});
-
+  const [loading, setLoading] = useState(false);
   const totalSteps = () => steps.length;
   const completedSteps = () => Object.keys(completed).length;
   const isLastStep = () => activeStep === totalSteps() - 1;
@@ -47,35 +47,31 @@ const Page = () => {
     setActiveStep(newActiveStep);
   };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  const handleBack = () => setActiveStep((prev) => prev - 1);
 
-  const handleStep = (step) => () => {
-    setActiveStep(step);
-  };
+  const handleStep = (step) => () => setActiveStep(step);
 
   const handleComplete = (values) => {
     setFormData((prev) => ({ ...prev, ...values }));
-    setCompleted({
-      ...completed,
-      [activeStep]: true,
-    });
+    setCompleted({ ...completed, [activeStep]: true });
     handleNext();
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-    setCompleted({});
-    setFormData({});
+  const handleSubmitData = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      router.push("/");
+    }, 2000);
   };
 
   return (
-    <div className="flex flex-col items-center mt-16 min-h-[78vh]">
+    <div className="flex flex-col justify-center items-center min-h-auto sm:min-h-[85vh] p-4">
       <Card
         sx={{
-          width: 900,
-          padding: 4,
+          width: "100%",
+          maxWidth: { xs: "100%", sm: "600px", md: "800px", lg: "900px" },
+          padding: { xs: 2, sm: 3, md: 4 },
           boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
         }}
       >
@@ -84,9 +80,9 @@ const Page = () => {
             Let's Get Started With
           </h2>
           <h3 className="text-lg font-bold text-gray-600 text-center">
-            Individual
+            Business
           </h3>
-          <p className="text-center text-gray-500 mb-6">
+          <p className="text-center text-gray-500 mb-4">
             Please provide the following information
           </p>
         </div>
@@ -96,7 +92,9 @@ const Page = () => {
             {steps.map((label, index) => (
               <Step key={label} completed={completed[index]}>
                 <StepButton onClick={handleStep(index)}>
-                  <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
+                  <StepLabel StepIconComponent={CustomStepIcon}>
+                    {label}
+                  </StepLabel>
                 </StepButton>
               </Step>
             ))}
@@ -106,21 +104,22 @@ const Page = () => {
             <BusinessInfoForm
               onNext={handleComplete}
               onBack={handleBack}
-              formData={formData} // Pass formData to BusinessInfoForm
+              formData={formData}
             />
           )}
           {activeStep === 1 && (
             <ContactPersonForm
-              onNext={handleComplete}
+              onNext={handleSubmitData}
               onBack={handleBack}
-              formData={formData} // Pass formData to ContactPersonForm
+              loading={loading}
+              formData={formData}
             />
           )}
         </Box>
 
-        <p className="text-center text-green-600 mt-4">
-          Already have an account?{" "}
-          <a href="#" className="underline">
+        <p className="text-center mt-4">
+          <span className="text-black">Already have an account? </span>
+          <a href="/" className="text-green-600 font-medium">
             Sign In
           </a>
         </p>

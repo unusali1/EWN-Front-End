@@ -6,13 +6,12 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-white px-6 py-4 md:px-12 lg:px-24 transition-all duration-300">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-        {/* Copyright Section */}
-        <div className="text-xs md:text-sm font-light opacity-75 tracking-wide">
-          © 2025 Example@Test Limited. All rights reserved.
+    
+        <div className="text-sm md:text-sm font-light ">
+          © 2025 Example@Test Limited.
         </div>
 
-        {/* Navigation Links */}
-        <nav className="flex flex-wrap gap-4 md:gap-6 lg:gap-8">
+        <nav className="flex flex-wrap justify-center items-center gap-4 md:gap-6 lg:gap-8">
           {["FAQs", "Contact Us", "Shipment Charges", "Privacy Policy", "Terms"].map((item) => (
             <a
               key={item}
@@ -25,7 +24,6 @@ const Footer = () => {
           ))}
         </nav>
 
-        {/* Version and Flag Section */}
         <div className="flex items-center gap-4 md:gap-6">
           <div className="flex items-center gap-2 group cursor-pointer">
             <Image
@@ -35,11 +33,11 @@ const Footer = () => {
               width={28}
               height={28}
             />
-            <span className="text-sm md:text-base font-medium uppercase tracking-wide group-hover:text-blue-300 transition-colors duration-200">
+            <span className="text-sm md:text-sm font-medium uppercase tracking-wide group-hover:text-blue-300 transition-colors duration-200">
               English
             </span>
           </div>
-          <span className="text-xs md:text-sm font-light opacity-75">Version 1.0.1</span>
+          <span className="text-sm md:text-sm font-light">Version 1.0.1</span>
         </div>
       </div>
     </footer>

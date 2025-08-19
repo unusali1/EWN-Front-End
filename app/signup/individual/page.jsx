@@ -1,11 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { Stepper, Step, StepButton, StepLabel } from "@mui/material";
-import { Card } from "@mui/material";
-
-import BusinessInfoForm from "@/Components/Individual/BusinessInfoForm.jsx";
-import ContactPersonForm from "@/Components/Individual/ContactPersonForm.jsx";
+import { Stepper, Step, StepButton, StepLabel, Card } from "@mui/material";
+import BusinessInfoForm from "@/components/individual/BusinessInfoForm.jsx";
+import ContactPersonForm from "@/components/individual/ContactPersonForm.jsx";
 import { useRouter } from "next/navigation";
 
 const steps = ["Business Info", "Contact Person Info"];
@@ -49,20 +47,13 @@ const Page = () => {
     setActiveStep(newActiveStep);
   };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  const handleBack = () => setActiveStep((prev) => prev - 1);
 
-  const handleStep = (step) => () => {
-    setActiveStep(step);
-  };
+  const handleStep = (step) => () => setActiveStep(step);
 
   const handleComplete = (values) => {
     setFormData((prev) => ({ ...prev, ...values }));
-    setCompleted({
-      ...completed,
-      [activeStep]: true,
-    });
+    setCompleted({ ...completed, [activeStep]: true });
     handleNext();
   };
 
@@ -75,11 +66,12 @@ const Page = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-[85vh]">
+    <div className="flex flex-col justify-center items-center min-h-auto sm:min-h-[85vh] p-4">
       <Card
         sx={{
-          width: 900,
-          padding: 4,
+          width: "100%",
+          maxWidth: { xs: "100%", sm: "600px", md: "800px", lg: "900px" },
+          padding: { xs: 2, sm: 3, md: 4 },
           boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
         }}
       >
@@ -112,7 +104,7 @@ const Page = () => {
             <BusinessInfoForm
               onNext={handleComplete}
               onBack={handleBack}
-              formData={formData} // Pass formData to BusinessInfoForm
+              formData={formData}
             />
           )}
           {activeStep === 1 && (
