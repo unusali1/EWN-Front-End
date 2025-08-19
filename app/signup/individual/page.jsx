@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { Stepper, Step, StepButton, StepLabel } from '@mui/material';
+import { Stepper, Step, StepButton, StepLabel } from "@mui/material";
 import { Card } from "@mui/material";
 
 import BusinessInfoForm from "@/Components/Individual/BusinessInfoForm.jsx";
 import ContactPersonForm from "@/Components/Individual/ContactPersonForm.jsx";
+import { useRouter } from "next/navigation";
 
 const steps = ["Business Info", "Contact Person Info"];
 
@@ -30,10 +31,11 @@ function CustomStepIcon(props) {
 }
 
 const Page = () => {
+  const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
   const [formData, setFormData] = useState({});
-
+  const [loading, setLoading] = useState(false);
   const totalSteps = () => steps.length;
   const completedSteps = () => Object.keys(completed).length;
   const isLastStep = () => activeStep === totalSteps() - 1;
@@ -64,14 +66,16 @@ const Page = () => {
     handleNext();
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-    setCompleted({});
-    setFormData({});
+  const handleSubmitData = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      router.push("/");
+    }, 2000);
   };
 
   return (
-    <div className="flex flex-col items-center mt-16 min-h-[78vh]">
+    <div className="flex flex-col justify-center items-center min-h-[85vh]">
       <Card
         sx={{
           width: 900,
@@ -86,7 +90,7 @@ const Page = () => {
           <h3 className="text-lg font-bold text-gray-600 text-center">
             Individual
           </h3>
-          <p className="text-center text-gray-500 mb-6">
+          <p className="text-center text-gray-500 mb-4">
             Please provide the following information
           </p>
         </div>
@@ -96,7 +100,9 @@ const Page = () => {
             {steps.map((label, index) => (
               <Step key={label} completed={completed[index]}>
                 <StepButton onClick={handleStep(index)}>
-                  <StepLabel StepIconComponent={CustomStepIcon}>{label}</StepLabel>
+                  <StepLabel StepIconComponent={CustomStepIcon}>
+                    {label}
+                  </StepLabel>
                 </StepButton>
               </Step>
             ))}
@@ -111,16 +117,17 @@ const Page = () => {
           )}
           {activeStep === 1 && (
             <ContactPersonForm
-              onNext={handleComplete}
+              onNext={handleSubmitData}
               onBack={handleBack}
-              formData={formData} // Pass formData to ContactPersonForm
+              loading={loading}
+              formData={formData}
             />
           )}
         </Box>
 
-        <p className="text-center text-green-600 mt-4">
-          Already have an account?{" "}
-          <a href="#" className="underline">
+        <p className="text-center mt-4">
+          <span className="text-black">Already have an account? </span>
+          <a href="/" className="text-green-600 font-medium">
             Sign In
           </a>
         </p>

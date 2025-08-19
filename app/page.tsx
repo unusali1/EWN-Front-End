@@ -120,6 +120,7 @@ const Home: React.FC = () => {
               error={formik.touched.email && Boolean(formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
               sx={{ mb: 3 }}
+              InputProps={{ sx: { height: "50px", padding: "6px" } }}
             />
             <TextField
               fullWidth
@@ -133,6 +134,7 @@ const Home: React.FC = () => {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
               InputProps={{
+                sx: { height: "50px", padding: "6px" },
                 endAdornment: formik.values.password && (
                   <InputAdornment position="end">
                     <IconButton

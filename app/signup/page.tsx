@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const page = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[85vh] bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-[85vh] bg-gray-100 ">
       <Typography
         variant="h5"
         sx={{ mb: 4, fontWeight:"bold", color: "#1f2937" }}

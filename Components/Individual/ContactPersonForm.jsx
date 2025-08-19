@@ -6,12 +6,24 @@ import {
   IconButton,
   InputAdornment,
   Button,
+  CircularProgress,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
+
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
+  OutlinedInput,
+} from "@mui/material";
 
 const personInfoValidationSchema = yup.object().shape({
   first_name: yup.string().required("First Name is required"),
@@ -36,10 +48,11 @@ const personInfoValidationSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
-export default function ContactPersonForm({ onNext, onBack }) {
+export default function ContactPersonForm({ onNext, onBack, loading }) {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -60,7 +73,7 @@ export default function ContactPersonForm({ onNext, onBack }) {
   });
 
   return (
-    <Box className="flex  mt-4">
+    <Box className="flex mt-4">
       <Box className="bg-white w-full ">
         <form onSubmit={formik.handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -75,7 +88,8 @@ export default function ContactPersonForm({ onNext, onBack }) {
                 formik.touched.first_name && Boolean(formik.errors.first_name)
               }
               helperText={formik.touched.first_name && formik.errors.first_name}
-              InputProps={{ sx: { height: "52px",padding: "6px" } }}
+              color="success"
+              InputProps={{ sx: { height: "52px", padding: "6px" } }}
             />
             <TextField
               fullWidth
@@ -88,7 +102,8 @@ export default function ContactPersonForm({ onNext, onBack }) {
                 formik.touched.last_name && Boolean(formik.errors.last_name)
               }
               helperText={formik.touched.last_name && formik.errors.last_name}
-              InputProps={{ sx: { height: "52px",padding: "6px" } }}
+              color="success"
+              InputProps={{ sx: { height: "52px", padding: "6px" } }}
             />
           </div>
 
@@ -126,23 +141,42 @@ export default function ContactPersonForm({ onNext, onBack }) {
                 onChange={formik.handleChange}
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
-                InputProps={{ sx: { height: "52px",padding: "6px" } }}
+                color="success"
+                InputProps={{ sx: { height: "52px", padding: "6px" } }}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <TextField
+            <FormControl
               fullWidth
-              id="role"
-              label="Role*"
-              name="role"
-              value={formik.values.role}
-              onChange={formik.handleChange}
               error={formik.touched.role && Boolean(formik.errors.role)}
-              helperText={formik.touched.role && formik.errors.role}
-              InputProps={{ sx: { height: "52px",padding: "6px" } }}
-            />
+              sx={{ minHeight: "52px" }}
+            >
+              <InputLabel id="role-label">Role*</InputLabel>
+              <Select
+                labelId="role-label"
+                id="role"
+                name="role"
+                value={formik.values.role}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                input={<OutlinedInput label="Role*" />}
+                color="success"
+                sx={{ height: "52px" }}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="Admin">Admin</MenuItem>
+                <MenuItem value="System User">System User</MenuItem>
+                <MenuItem value="Super Admin">Super Admin</MenuItem>
+              </Select>
+              {formik.touched.role && formik.errors.role && (
+                <FormHelperText>{formik.errors.role}</FormHelperText>
+              )}
+            </FormControl>
+
             <TextField
               fullWidth
               id="national_id"
@@ -156,7 +190,8 @@ export default function ContactPersonForm({ onNext, onBack }) {
               helperText={
                 formik.touched.national_id && formik.errors.national_id
               }
-              InputProps={{ sx: { height: "52px",padding: "6px" } }}
+              color="success"
+              InputProps={{ sx: { height: "52px", padding: "6px" } }}
             />
           </div>
 
@@ -171,15 +206,16 @@ export default function ContactPersonForm({ onNext, onBack }) {
               onChange={formik.handleChange}
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
+              color="success"
               InputProps={{
-                sx: { height: "52px",padding: "6px" },
+                sx: { height: "52px", padding: "6px" },
                 endAdornment: formik.values.password && (
                   <InputAdornment position="end">
                     <IconButton
                       onClick={() => setShowPassword(!showPassword)}
                       edge="end"
                     >
-                      {showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
+                      {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -192,9 +228,10 @@ export default function ContactPersonForm({ onNext, onBack }) {
               id="confirm_password"
               label="Confirm Password*"
               name="confirm_password"
-              type={showPassword ? "text" : "password"}
+              type={showConfirmPassword ? "text" : "password"}
               value={formik.values.confirm_password}
               onChange={formik.handleChange}
+              color="success"
               error={
                 formik.touched.confirm_password &&
                 Boolean(formik.errors.confirm_password)
@@ -204,23 +241,49 @@ export default function ContactPersonForm({ onNext, onBack }) {
                 formik.errors.confirm_password
               }
               InputProps={{
-                sx: { height: "52px",padding: "6px" },
+                sx: { height: "52px", padding: "6px" },
                 endAdornment: formik.values.confirm_password && (
                   <InputAdornment position="end">
                     <IconButton
-                      onClick={() => setShowConfirmPassword(!showPassword)}
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
                       edge="end"
                     >
                       {showConfirmPassword ? (
-                        <AiFillEye />
-                      ) : (
                         <AiFillEyeInvisible />
+                      ) : (
+                        <AiFillEye />
                       )}
                     </IconButton>
                   </InputAdornment>
                 ),
                 className: "rounded-lg",
               }}
+            />
+          </div>
+
+          <div>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checked}
+                  onChange={() => setChecked(!checked)}
+                  style={{
+                    color: "#EF510F",
+                  }}
+                />
+              }
+              label={
+                <span>
+                  <span style={{ color: "black", fontWeight: 400 }}>
+                    I agree with DAK Express{" "}
+                  </span>
+                  <span style={{ color: "green", fontWeight: 400 }}>
+                    terms & conditions
+                  </span>
+                </span>
+              }
             />
           </div>
 
@@ -234,13 +297,29 @@ export default function ContactPersonForm({ onNext, onBack }) {
             >
               BACK
             </Button>
+
             <Button
               type="submit"
               variant="contained"
-              style={{ backgroundColor: "#688228" }}
-              className="bg-amber-600 w-full text-white px-6 py-2 rounded-md shadow-sm hover:bg-green-800 focus:outline-none"
+              disabled={loading || !checked}
+              sx={{
+                backgroundColor: "#688228",
+                color: "white", // text color
+                "&.Mui-disabled": {
+                  backgroundColor: "#A7C27D", // lighter green or grey background when disabled
+                  color: "white", // keep text white
+                },
+              }}
+              className="w-full px-6 py-2 rounded-md shadow-sm flex items-center justify-center gap-2"
             >
-              SUBMIT
+              {loading ? (
+                <>
+                  Submitting...
+                  <CircularProgress size={20} sx={{ color: "white" }} />
+                </>
+              ) : (
+                "SUBMIT"
+              )}
             </Button>
           </div>
         </form>
