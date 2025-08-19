@@ -1,6 +1,6 @@
 import { Box, Container, Typography } from "@mui/material";
 import React from "react";
-import LoginForm from "../components/LoginForm.jsx";
+import LoginForm from "../Components/LoginForm.jsx";
 
 const Home = () => {
   return (
