@@ -29,6 +29,8 @@
     ".next/types/**/*.ts",
     "components/individual/BusinessInfoForm.jsx",
     "components/individual/ContactPersonForm.jsx",
+    "components/business/BusinessInfoForm.jsx",
+    "components/business/ContactPersonForm.jsx",
     "app/signup/individual/page.jsx",
     "app/signup/business/page.jsx",
     "app/page.jsx",
