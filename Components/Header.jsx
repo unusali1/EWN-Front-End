@@ -21,7 +21,7 @@ const Header = () => {
           </span>
         </div>
 
-        <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300 ease-in-out">
+        <button className="bg-[#688228] hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300 ease-in-out">
           Sign In
         </button>
       </div>

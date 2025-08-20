@@ -67,6 +67,7 @@ const page = () => {
               width: 350,
               padding: 6,
               boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+              border:"1px solid #00D003"
             }}
           >
             <CardContent
@@ -78,10 +79,10 @@ const page = () => {
                 p: 4,
               }}
             >
-              <StorefrontIcon sx={{ fontSize: 60, color: "#f97316", mb: 2 }} />
+              <StorefrontIcon sx={{ fontSize: 60, color: "#688228", mb: 2 }} />
               <Typography
                 variant="h5"
-                sx={{ fontWeight: "bold", color: "#f97316", mb: 1 }}
+                sx={{ fontWeight: "bold", color: "#688228", mb: 1 }}
               >
                 Business
               </Typography>
@@ -92,13 +93,10 @@ const page = () => {
                 <Button
                   variant="contained"
                   sx={{
-                    backgroundColor: "#f97316",
+                    backgroundColor: "#688228",
                     textTransform: "none",
                     fontWeight: 500,
                     px: 4,
-                    "&:hover": {
-                      backgroundColor: "#e86a14",
-                    },
                   }}
                 >
                   SIGN UP
